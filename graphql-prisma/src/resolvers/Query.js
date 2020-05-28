@@ -1,26 +1,46 @@
 const Query = {
     users(parent, args, {
-        db
+        prisma
     }, info) {
-        if (!args.query)
-            return db.users;
+        const opArgs = {};
 
-        return db.users.filter(user => user.name.toLowerCase().includes(args.query.toLowerCase()))
-    },
-    me() {
-        return {
-            id: '123123',
-            name: 'Christian Angelo',
-            email: 'ca123@msn.com',
-            age: 24
+        if (args.query) {
+            opArgs.where = {
+                OR: [{
+                    name_contains: args.query
+                }, {
+                    email_contains: args.query
+                }]
+            }
         }
+
+        return prisma.query.users(opArgs, info); //info is the set of scalar types that you want to grab for this user
     },
     posts(parent, args, {
-        db
+        prisma
     }, info) {
-        if (!args.query)
-            return db.posts;
-        return db.posts.filter(post => (post.body + post.title).toLowerCase().includes(args.query.toLowerCase()));
+        const opArgs = {};
+        if (args.query) {
+            opArgs.where = {
+                OR: [{
+                    title_contains: args.query
+                }, {
+                    body_contains: args.query
+                }]
+            }
+        }
+        return prisma.query.posts(opArgs, info);
+    },
+    comments(parent, args, {
+        prisma
+    }, info) {
+        const opArgs = {};
+        if (args.query) {
+            opArgs.where = {
+                text_contains: args.query
+            }
+        }
+        return prisma.query.comments(opArgs, info);
     }
 }
 
