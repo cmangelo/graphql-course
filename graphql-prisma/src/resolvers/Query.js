@@ -4,7 +4,12 @@ const Query = {
     users(parent, args, {
         prisma
     }, info) {
-        const opArgs = {};
+        const opArgs = {
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy
+        };
 
         if (args.query) {
             opArgs.where = {
@@ -22,7 +27,11 @@ const Query = {
         const opArgs = {
             where: {
                 published: true
-            }
+            },
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy
         };
         if (args.query) {
             opArgs.where.OR = [{
@@ -43,7 +52,11 @@ const Query = {
                 author: {
                     id: userId
                 }
-            }
+            },
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy
         };
 
         if (args.query) {
@@ -58,7 +71,12 @@ const Query = {
     comments(parent, args, {
         prisma
     }, info) {
-        const opArgs = {};
+        const opArgs = {
+            first: args.first,
+            skip: args.skip,
+            after: args.after,
+            orderBy: args.orderBy
+        };
         if (args.query) {
             opArgs.where = {
                 text_contains: args.query
