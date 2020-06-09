@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/index.js --ext js,graphql --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "get-schema": "graphql get-schema -p prisma"
+    "get-schema": "graphql get-schema -p prisma",
+    "deploy-prisma": "npx prisma1 deploy"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "prisma-binding": "^2.3.16"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "prisma1": "^1.34.11"
   }
 }
